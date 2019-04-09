@@ -1,0 +1,12 @@
+{
+  "name":"sjawandh/328/dating",
+  "authors": [
+    {
+      "name": "Sukhveer S Jawandha",
+      "email": "sjawandha2@mail.greenriver.edu"
+    }
+  ],
+  "require": {
+    "bcosca/fatfree-core": "dev-master"
+  }
+}
