@@ -5,9 +5,12 @@ Sukhveer S Jawandha
 Styling for dating site
  */
 
-img
+div.container {
+    padding: 40px;
+}
+#mainImg
 {
-    width: 800px;
-    length: 200px;
+    width: 500px;
+    height: 600px;
     float: right;
 }
