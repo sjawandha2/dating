@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--
+     Name : Sukhveer Jawandha
+     Date: 4/5/2019
+      File: 328/dating/views/profile.html
+    This file contain the form for profile info.
+    /-->
+    <meta charset="UTF-8">
+    <title>Create an Account</title>
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+<!-- navbar -->
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">My Dating Website</a>
+        </div>
+    </div>
+</nav> <!-- end navbar -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="text-left">Profile</h1>
+            <hr>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="col-md-12">
+                <div class="form-group row">
+                    <label>Email</label>
+                    <input type="email" class="form-control" name="email">
+                </div>
+                <div class="form-group row">
+                    <label>State</label>
+                    <select class="form-control" name="state">
+                        <option></option>
+                    </select>
+                </div>
+                <div class="form-group row">
+                    <label>Seeking</label><br>
+                    <label class="radio-inline"><input type="radio" name="seeking" checked>Male</label>
+                    <label class="radio-inline"><input type="radio" name="seeking">Female</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>Biography</label>
+                    <textarea class="form-control" rows="5" placeholder="Tell us about yourself..."></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row text-right">
+    <a href="interest" class="btn btn-primary btn-md">Next ></a>
+</div>
+</div>
+</body>
+</html>
