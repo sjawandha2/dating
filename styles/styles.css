@@ -7,10 +7,14 @@ Styling for dating site
 
 div.container {
     padding: 40px;
+    border: 1px solid black;
+    border-radius: 8px;
 }
 #mainImg
 {
     width: 500px;
     height: 600px;
-    float: right;
+    border-radius: 8px;
+
 }
+
