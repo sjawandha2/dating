@@ -40,5 +40,12 @@ $f3 ->route('GET /signup/profile' ,function(){
     echo $view->render('views/profile.html');
 });
 
+// when click next it goes to summary page
+$f3 ->route('GET /signup/interests' ,function(){
+
+    //Display a views
+    $view = new Template();
+    echo $view->render('views/interests.html');
+});
 //Run Fat-Free
 $f3->run();
