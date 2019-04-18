@@ -33,7 +33,15 @@ $f3 ->route('GET /signup/info' ,function(){
     echo $view->render('views/info.html');
 });
 // when click next it goes to profile info page
-$f3 ->route('GET /signup/profile' ,function(){
+$f3 ->route('POST /signup/profile' ,function(){
+
+//    print_r($_POST);
+    // assign post array to session
+    $_SESSION['fname'] = $_POST['fname'];
+    $_SESSION['lname'] = $_POST['lname'];
+    $_SESSION['age'] = $_POST['age'];
+    $_SESSION['gender'] = $_POST['gender'];
+    $_SESSION['phone'] = $_POST['phone'];
 
     //Display a views
     $view = new Template();
@@ -41,11 +49,30 @@ $f3 ->route('GET /signup/profile' ,function(){
 });
 
 // when click next it goes to summary page
-$f3 ->route('GET /signup/interests' ,function(){
+$f3 ->route('POST /signup/interests' ,function(){
+
+   // print_r($_POST);
+    // assign post array to session
+    $_SESSION['email'] = $_POST['email'];
+    $_SESSION['state'] = $_POST['state'];
+    $_SESSION['seeking'] = $_POST['seeking'];
+    $_SESSION['bio'] = $_POST['bio'];
 
     //Display a views
     $view = new Template();
     echo $view->render('views/interests.html');
+});
+
+// when click next it goes to summary page
+$f3 ->route('POST /signup/summary' ,function(){
+    
+    print_r($_POST);
+
+    $_SESSION['interest'] = $_POST['interest'];
+    $_SESSION['outinterest'] = $_POST['outinterest'];
+    //Display a views
+    $view = new Template();
+    echo $view->render('views/summary.html');
 });
 //Run Fat-Free
 $f3->run();

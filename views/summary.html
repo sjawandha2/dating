@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--
+     Name : Sukhveer Jawandha
+     Date: 4/5/2019
+      File: 328/dating/views/interests.html
+    This file contain the form for interests for signup.
+    /-->
+    <meta charset="UTF-8">
+    <title>Create an Account</title>
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+<!-- navbar -->
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">My Dating Website</a>
+        </div>
+    </div>
+</nav> <!-- end navbar -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+    <h3>Name:{{ $_SESSION['fname']}} {{ $_SESSION['lname']}}</h3>
+    <h3>Gender:{{ $_SESSION['gender']}}</h3>
+    <h3>Age:{{ $_SESSION['age']}}</h3>
+    <h3>Gender:{{ $_SESSION['phone']}}</h3>
+    <h3>Email:{{ $_SESSION['email']}}</h3>
+    <h3>State:{{ $_SESSION['state']}}</h3>
+    <h3>Seeking:{{ $_SESSION['seeking']}}</h3>
+    <h3>Gender:{{ $_SESSION['outinterest']}}{{ $_SESSION['interest']}}</h3>
+        </div>
+        <div class="col-sm-6">
+            <h3>State:{{ $_SESSION['bio']}}</h3>
+        </div>
+</div>
+</div>
+</body>
+</html>

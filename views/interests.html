@@ -32,7 +32,7 @@
             <hr>
         </div>
     </div>
-
+    <form method="post" action="summary">
     <div class="row">
         <div class="col-lg-12">
             <div class="form-group row">
@@ -40,17 +40,14 @@
 
                 <div class="d-flex">
                     <div>
-                        <label class="checkbox-inline p-2 flex-fill"><input type="checkbox" value="">tv</label>
-                        <label class="checkbox-inline p-2 flex-fill"><input type="checkbox" value="">movies</label>
-                        <label class="checkbox-inline p-2 flex-fill"><input type="checkbox" value="">cooking</label>
-                        <label class="checkbox-inline p-2 flex-fill"><input type="checkbox" value="">board games</label>
-                    </div>
-
-                    <div>
-                        <label class="checkbox-inline p-2 flex-fill"><input type="checkbox" value="">puzzles</label>
-                        <label class="checkbox-inline p-2 flex-fill"><input type="checkbox" value="">biking</label>
-                        <label class="checkbox-inline p-2 flex-fill"><input type="checkbox" value="">swimming</label>
-                        <label class="checkbox-inline p-2 flex-fill"><input type="checkbox" value="">collecting</label>
+                        <label class="checkbox-inline p-2 flex-fill"><input name="interest[]" type="checkbox" value="">tv</label>
+                        <label class="checkbox-inline p-2 flex-fill"><input name="interest[]" type="checkbox" value="">movies</label>
+                        <label class="checkbox-inline p-2 flex-fill"><input name="interest[]" type="checkbox" value="">cooking</label>
+                        <label class="checkbox-inline p-2 flex-fill"><input name="interest[]" type="checkbox" value="">board games</label>
+                        <label class="checkbox-inline p-2 flex-fill"><input name="interest[]" type="checkbox" value="">puzzles</label>
+                        <label class="checkbox-inline p-2 flex-fill"><input name="interest[]" type="checkbox" value="">biking</label>
+                        <label class="checkbox-inline p-2 flex-fill"><input name="interest[]" type="checkbox" value="">swimming</label>
+                        <label class="checkbox-inline p-2 flex-fill"><input name="interest[]" type="checkbox" value="">collecting</label>
                     </div>
                 </div>
             </div>
@@ -59,26 +56,23 @@
                 <label>Outdoor Interests</label><br>
                 <div class="d-flex">
                     <div>
-                        <label class="checkbox-inline p-2 flex-fill"><input type="checkbox" value="">hiking</label>
-                        <label class="checkbox-inline p-2 flex-fill"><input type="checkbox" value="">biking</label>
-                        <label class="checkbox-inline p-2 flex-fill"><input type="checkbox" value="">swimming</label>
-                        <label class="checkbox-inline p-2 flex-fill"><input type="checkbox" value="">collecting</label>
-                    </div>
-
-                    <div>
-                        <label class="checkbox-inline p-2 flex-fill"><input type="checkbox" value="">walking</label>
-                        <label class="checkbox-inline p-2 flex-fill"><input type="checkbox" value="">climbing</label>
-                        <label class="checkbox-inline p-2 flex-fill"><input type="checkbox" value="">camping</label>
-                        <label class="checkbox-inline p-2 flex-fill"><input type="checkbox" value="">hunting</label>
+                        <label class="checkbox-inline p-2 flex-fill"><input name="outinterest[]" type="checkbox" value="">hiking</label>
+                        <label class="checkbox-inline p-2 flex-fill"><input name="outinterest[]" type="checkbox" value="">biking</label>
+                        <label class="checkbox-inline p-2 flex-fill"><input name="outinterest[]" type="checkbox" value="">swimming</label>
+                        <label class="checkbox-inline p-2 flex-fill"><input name="outinterest[]" type="checkbox" value="">collecting</label>
+                        <label class="checkbox-inline p-2 flex-fill"><input name="outinterest[]" type="checkbox" value="">walking</label>
+                        <label class="checkbox-inline p-2 flex-fill"><input name="outinterest[]" type="checkbox" value="">climbing</label>
+                        <label class="checkbox-inline p-2 flex-fill"><input name="outinterest[]" type="checkbox" value="">camping</label>
+                        <label class="checkbox-inline p-2 flex-fill"><input name="outinterest[]" type="checkbox" value="">hunting</label>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <div class="row text-right">
-        <a href="summary" class="btn btn-primary btn-md">Next ></a>
-    </div>
+        <div class="row text-right">
+            <input type="submit" value="Next >">
+        </div>
+    </form>
 </div>
 </body>
 </html>
