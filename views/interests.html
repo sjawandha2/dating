@@ -26,53 +26,64 @@
     </div>
 </nav> <!-- end navbar -->
 <div class="container">
-    <div class="row">
-        <div class="col-lg-12">
-            <h1 class="text-left">Interests</h1>
-            <hr>
-        </div>
-    </div>
-    <form method="post" action="summary">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="form-group row">
-                <label>Indoor Interests</label><br>
+    <div class="mt-4 mb-4">
+        <h1>&nbsp;Interests</h1>
+        <hr>
+        <form action="summary" method="post">
+            <p>
+                <strong>In-door Interests</strong>
 
-                <div class="d-flex">
-                    <div>
-                        <label class="checkbox-inline p-2 flex-fill"><input name="interest[]" type="checkbox" value="">tv</label>
-                        <label class="checkbox-inline p-2 flex-fill"><input name="interest[]" type="checkbox" value="">movies</label>
-                        <label class="checkbox-inline p-2 flex-fill"><input name="interest[]" type="checkbox" value="">cooking</label>
-                        <label class="checkbox-inline p-2 flex-fill"><input name="interest[]" type="checkbox" value="">board games</label>
-                        <label class="checkbox-inline p-2 flex-fill"><input name="interest[]" type="checkbox" value="">puzzles</label>
-                        <label class="checkbox-inline p-2 flex-fill"><input name="interest[]" type="checkbox" value="">biking</label>
-                        <label class="checkbox-inline p-2 flex-fill"><input name="interest[]" type="checkbox" value="">swimming</label>
-                        <label class="checkbox-inline p-2 flex-fill"><input name="interest[]" type="checkbox" value="">collecting</label>
+
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="col"><input type="checkbox" name="indoor_interests[]" value="tv"> tv</div>
+                    <div class="col"><input type="checkbox" name="indoor_interests[]" value="puzzles"> puzzles</div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col"><input type="checkbox" name="indoor_interests[]" value="movies"> movies</div>
+                    <div class="col"><input type="checkbox" name="indoor_interests[]" value="reading"> reading</div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col"><input type="checkbox" name="indoor_interests[]" value="cooking"> cooking</div>
+                    <div class="col"><input type="checkbox" name="indoor_interests[]" value="playing cards"> playing
+                        cards
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col"><input type="checkbox" name="indoor_interests[]" value="board games"> board games
+                    </div>
+                    <div class="col"><input type="checkbox" name="indoor_interests[]" value="video games"> video games
                     </div>
                 </div>
             </div>
+            </p>
+            <p>
+                <strong>Out-door Interests</strong>
 
-            <div class="form-group row">
-                <label>Outdoor Interests</label><br>
-                <div class="d-flex">
-                    <div>
-                        <label class="checkbox-inline p-2 flex-fill"><input name="outinterest[]" type="checkbox" value="">hiking</label>
-                        <label class="checkbox-inline p-2 flex-fill"><input name="outinterest[]" type="checkbox" value="">biking</label>
-                        <label class="checkbox-inline p-2 flex-fill"><input name="outinterest[]" type="checkbox" value="">swimming</label>
-                        <label class="checkbox-inline p-2 flex-fill"><input name="outinterest[]" type="checkbox" value="">collecting</label>
-                        <label class="checkbox-inline p-2 flex-fill"><input name="outinterest[]" type="checkbox" value="">walking</label>
-                        <label class="checkbox-inline p-2 flex-fill"><input name="outinterest[]" type="checkbox" value="">climbing</label>
-                        <label class="checkbox-inline p-2 flex-fill"><input name="outinterest[]" type="checkbox" value="">camping</label>
-                        <label class="checkbox-inline p-2 flex-fill"><input name="outinterest[]" type="checkbox" value="">hunting</label>
+
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="col"><input type="checkbox" name="outdoor_interests[]" value="hiking"> hiking</div>
+                    <div class="col"><input type="checkbox" name="outdoor_interests[]" value="walking"> walking</div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col"><input type="checkbox" name="outdoor_interests[]" value="biking"> biking</div>
+                    <div class="col"><input type="checkbox" name="outdoor_interests[]" value="climbing"> climbing</div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col"><input type="checkbox" name="outdoor_interests[]" value="swimming"> swimming</div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col"><input type="checkbox" name="outdoor_interests[]" value="collecting"> collecting
                     </div>
                 </div>
             </div>
-        </div>
+            </p>
+            <div class="text-right">
+                <button type="submit" class="btn btn-primary">Next ></button>
+            </div>
+        </form>
     </div>
-        <div class="row text-right">
-            <input type="submit" value="Next >">
-        </div>
-    </form>
 </div>
 </body>
 </html>

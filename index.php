@@ -1,4 +1,5 @@
 <?php
+session_start();
 /**
  * Name: Sukhveer S Jawandha
  * 4/8/2019
@@ -35,7 +36,7 @@ $f3 ->route('GET /signup/info' ,function(){
 // when click next it goes to profile info page
 $f3 ->route('POST /signup/profile' ,function(){
 
-//    print_r($_POST);
+    print_r($_POST);
     // assign post array to session
     $_SESSION['fname'] = $_POST['fname'];
     $_SESSION['lname'] = $_POST['lname'];
@@ -51,7 +52,7 @@ $f3 ->route('POST /signup/profile' ,function(){
 // when click next it goes to summary page
 $f3 ->route('POST /signup/interests' ,function(){
 
-   // print_r($_POST);
+    print_r($_POST);
     // assign post array to session
     $_SESSION['email'] = $_POST['email'];
     $_SESSION['state'] = $_POST['state'];
@@ -65,11 +66,11 @@ $f3 ->route('POST /signup/interests' ,function(){
 
 // when click next it goes to summary page
 $f3 ->route('POST /signup/summary' ,function(){
-    
+
     print_r($_POST);
 
-    $_SESSION['interest'] = $_POST['interest'];
-    $_SESSION['outinterest'] = $_POST['outinterest'];
+    $_SESSION['indoor_interests[]'] = $_POST['indoor_interests[]'];
+    $_SESSION['outdoor_interests[]'] = $_POST['outdoor_interests[]'];
     //Display a views
     $view = new Template();
     echo $view->render('views/summary.html');

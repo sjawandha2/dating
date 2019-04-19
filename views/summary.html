@@ -29,17 +29,36 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-6">
-    <h3>Name:{{ $_SESSION['fname']}} {{ $_SESSION['lname']}}</h3>
-    <h3>Gender:{{ $_SESSION['gender']}}</h3>
-    <h3>Age:{{ $_SESSION['age']}}</h3>
-    <h3>Gender:{{ $_SESSION['phone']}}</h3>
-    <h3>Email:{{ $_SESSION['email']}}</h3>
-    <h3>State:{{ $_SESSION['state']}}</h3>
-    <h3>Seeking:{{ $_SESSION['seeking']}}</h3>
-    <h3>Gender:{{ $_SESSION['outinterest']}}{{ $_SESSION['interest']}}</h3>
+            <table>
+                <tr>
+                    <td>Name:{{ $_SESSION['fname']}} {{ $_SESSION['lname']}}</td>
+                </tr>
+                <tr>
+                    <td>Gender:{{ $_SESSION['gender']}}</td>
+                </tr>
+                <tr>
+                    <td>Age:{{ $_SESSION['age']}}</td>
+                </tr>
+                <tr>
+                    <td>Phone:{{ $_SESSION['phone']}}</td>
+                </tr>
+                <tr>
+                    <td>Email:{{ $_SESSION['email']}}</td>
+                </tr>
+                <tr>
+                    <td>State:{{ $_SESSION['state']}}</td>
+                </tr>
+                <tr>
+                    <td>Seeking:{{ $_SESSION['seeking']}}</td>
+                </tr>
+                <tr>
+                    <td>Interests:{{ $_SESSION['outdoor_interests[]']}}{{ $_SESSION['indoor_interests[]']}}</td>
+                </tr>
+               </table>
         </div>
+
         <div class="col-sm-6">
-            <h3>State:{{ $_SESSION['bio']}}</h3>
+            <h3>Bio:{{ $_SESSION['bio']}}</h3>
         </div>
 </div>
 </div>
