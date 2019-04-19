@@ -22,45 +22,37 @@
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand" href="#">My Dating Website</a>
+            <a class="navbar-brand" href="/328/dating">Home</a>
         </div>
     </div>
 </nav> <!-- end navbar -->
 
 <div class="container">
     <div class="row">
-        <div class="col-sm-6">
-            <table>
-                <tr>
-                    <td>Name:{{ $_SESSION['fname']}} {{ $_SESSION['lname']}}</td>
-                </tr>
-                <tr>
-                    <td>Gender:{{ $_SESSION['gender']}}</td>
-                </tr>
-                <tr>
-                    <td>Age:{{ $_SESSION['age']}}</td>
-                </tr>
-                <tr>
-                    <td>Phone:{{ $_SESSION['phone']}}</td>
-                </tr>
-                <tr>
-                    <td>Email:{{ $_SESSION['email']}}</td>
-                </tr>
-                <tr>
-                    <td>State:{{ $_SESSION['state']}}</td>
-                </tr>
-                <tr>
-                    <td>Seeking:{{ $_SESSION['seeking']}}</td>
-                </tr>
-                <tr>
-                    <td>Interests:{{ $_SESSION['outdoor_interests[]']}}{{ $_SESSION['indoor_interests[]']}}</td>
-                </tr>
-               </table>
-        </div>
+        <div class="row justify-content-lg-center">
+            <div class="col-lg-12 justify-content-lg-center">
+                <div class="col-lg-6">
+                    <ul class="ul list-group">
+                        <li class="list-group-item">Name:{{ $_SESSION['fname']}} {{ $_SESSION['lname']}}</li>
+                        <li class="list-group-item">Gender:{{ $_SESSION['gender']}}</li>
+                        <li class="list-group-item">Age:{{ $_SESSION['age']}}</li>
+                        <li class="list-group-item">Phone:{{ $_SESSION['phone']}}</li>
+                        <li class="list-group-item">Email:{{ $_SESSION['email']}}</li>
+                        <li class="list-group-item">State:{{ $_SESSION['state']}}</li>
+                        <li class="list-group-item">Seeking:{{ $_SESSION['seeking']}}</li>
+                        <li class="list-group-item">Interests:{{ $_SESSION['outdoor_interests[]']}}{{ $_SESSION['indoor_interests[]']}}</li>
+                    </ul>
+                </div>
 
-        <div class="col-sm-6">
-            <h3>Bio:{{ $_SESSION['bio']}}</h3>
+                <div class="col-sm-6">
+                    <img src="../images/profile.png" class="float center" alt="Default Profile Picture">
+                    <ul class="ul list-group">
+                        <li class="list-group-item text-center">Biography:{{ $_SESSION['bio']}}</li>
+                    </ul>
+                 </div>
+            </div>
         </div>
-</div>
+    </div>
 </div>
 </body>
 </html>
