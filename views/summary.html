@@ -33,18 +33,18 @@
             <div class="col-lg-12 justify-content-lg-center">
                 <div class="col-lg-6">
                     <ul class="ul list-group">
-                        <li class="list-group-item">Name:{{ $_SESSION['fname']}} {{ $_SESSION['lname']}}</li>
-                        <li class="list-group-item">Gender:{{ $_SESSION['gender']}}</li>
-                        <li class="list-group-item">Age:{{ $_SESSION['age']}}</li>
-                        <li class="list-group-item">Phone:{{ $_SESSION['phone']}}</li>
-                        <li class="list-group-item">Email:{{ $_SESSION['email']}}</li>
-                        <li class="list-group-item">State:{{ $_SESSION['state']}}</li>
-                        <li class="list-group-item">Seeking:{{ $_SESSION['seeking']}}</li>
-                        <li class="list-group-item">Interests:{{ $_SESSION['outdoor_interests[]']}}{{ $_SESSION['indoor_interests[]']}}</li>
+                        <li class="list-group-item">Name: {{ $_SESSION['fname']}} {{ $_SESSION['lname']}}</li>
+                        <li class="list-group-item">Gender: {{ $_SESSION['gender']}}</li>
+                        <li class="list-group-item">Age: {{ $_SESSION['age']}}</li>
+                        <li class="list-group-item">Phone: {{ $_SESSION['phone']}}</li>
+                        <li class="list-group-item">Email: {{ $_SESSION['email']}}</li>
+                        <li class="list-group-item">State: {{ $_SESSION['state']}}</li>
+                        <li class="list-group-item">Seeking: {{ $_SESSION['seeking']}}</li>
+                        <li class="list-group-item">Interests: {{ $_SESSION['outdoor_interests[]']}}{{ $_SESSION['indoor_interests[]']}}</li>
                     </ul>
                 </div>
 
-                <div class="col-sm-6">
+                <div class="col-sm-6 text-center">
                     <img src="../images/profile.png" class="float center" alt="Default Profile Picture">
                     <ul class="ul list-group">
                         <li class="list-group-item text-center">Biography:{{ $_SESSION['bio']}}</li>
