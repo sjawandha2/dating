@@ -68,8 +68,9 @@ $f3 ->route('POST /signup/interests' ,function(){
 $f3 ->route('POST /signup/summary' ,function(){
 
 //    print_r($_POST);
-    $_SESSION['indoor_interests[]'] = $_POST['indoor_interests[]'];
-    $_SESSION['outdoor_interests[]'] = $_POST['outdoor_interests[]'];
+    $_SESSION['indoor_interests'] = $_POST['indoor_interests[]'];
+    $_SESSION['outdoor_interests'] = $_POST['outdoor_interests[]'];
+
     //Display a views
     $view = new Template();
     echo $view->render('views/summary.html');

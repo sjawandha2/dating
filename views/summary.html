@@ -40,17 +40,22 @@
                         <li class="list-group-item">Email: {{ $_SESSION['email']}}</li>
                         <li class="list-group-item">State: {{ $_SESSION['state']}}</li>
                         <li class="list-group-item">Seeking: {{ $_SESSION['seeking']}}</li>
-                        <li class="list-group-item">Interests: {{ $_SESSION['outdoor_interests[]']}}{{ $_SESSION['indoor_interests[]']}}</li>
+                        <!--<li class="list-group-item">Interests: {{ $_SESSION['outdoor_interests']}} {{ $_SESSION['indoor_interests']}}</li>-->
                     </ul>
                 </div>
 
                 <div class="col-sm-6 text-center">
                     <img src="../images/profile.png" class="float center" alt="Default Profile Picture">
                     <ul class="ul list-group">
-                        <li class="list-group-item text-center">Biography:{{ $_SESSION['bio']}}</li>
+                        <h3>Biography</h3>
+                        <li class="list-group-item text-center">{{ $_SESSION['bio']}}</li>
                     </ul>
-                 </div>
+                <div class="center">
+                    <button type="submit" class="btn btn-primary">Contact Me</button>
+                </div>
+                </div>
             </div>
+        </div>
         </div>
     </div>
 </div>
