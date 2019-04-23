@@ -27,9 +27,26 @@ $f3->route('GET /' , function (){
 });
 
 // Define a route sign up information page
-$f3 ->route('GET /signup/info' ,function(){
+$f3 ->route('GET /signup/info' ,function($f3){
 
-    //Display a views
+    //start with empty session array here
+    $_SESSION = array();
+
+    $isValid = true;
+
+    if (isset($_POST['fname'])) {
+        $fname = $_POST['fname'];
+        if (validName($fname)) {
+            $_SESSION['fname'] = $fname;
+        }
+        else
+        {
+            $f3->set("errors['fname']", "Please enter your name");
+            $isValid = false;
+        }
+    }
+
+        //Display a views
     $view = new Template();
     echo $view->render('views/info.html');
 });

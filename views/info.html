@@ -41,6 +41,10 @@
                 <div class="form-group row">
                     <label>First Name</label>
                     <input type="text" class="form-control" name="fname">
+                    <!-- validation error message -->
+                    <check if="{{ isset(@errors['fname']) }}">
+                        <p>{{ @errors['fname'] }}</p>
+                    </check>
                 </div>
                 <div class="form-group row">
                     <label>Last Name</label>
