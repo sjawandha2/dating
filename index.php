@@ -20,7 +20,7 @@ $f3 = Base::instance();
 $f3->set('DEBUG', 3);
 
 // Define a default route for home page
-$f3->route('GET /' , function (){
+$f3->route('GET|POST /' , function (){
 
     //Display a view of home page
     $view = new Template();
@@ -57,16 +57,48 @@ $f3 ->route('GET|POST /signup/info',
                     $isValid = false;
                 }
             }
+
+            // validate age
+            if (isset($_POST['age'])) {
+                $age = $_POST['age'];
+                if (validAge($age)) {
+                    $_SESSION['age'] = $age;
+                } else {
+                    $f3->set("errors['age']", "Please enter your age (Must be 18 or older)");
+                    $isValid = false;
+                }
+            }
+
+            // saves gender if set
+            if (isset($_POST['gender'])) {
+                $_SESSION['gender'] = $_POST['gender'];
+            }
+            // validate phone number
+            if (isset($_POST['phone'])) {
+                $phone = $_POST['phone'];
+                if (validPhone($phone)) {
+                    $_SESSION['phone'] = $phone;
+                } else {
+                    $f3->set("errors['phone']", "Please enter full 10-digit number");
+                    $isValid = false;
+                }
+            }
+
+            if ($isValid) {
+                $f3->reroute("/signup/profile");
+            }
         }
-        print_r($_POST);
+//        print_r($_POST);
 
 
         //Display a views
     $view = new Template();
     echo $view->render('views/info.html');
 });
+
+
 // when click next it goes to profile info page
-$f3 ->route('POST /signup/profile' ,function(){
+$f3 ->route('GET|POST /signup/profile' ,function(){
 
     //Display a views
     $view = new Template();
@@ -74,7 +106,7 @@ $f3 ->route('POST /signup/profile' ,function(){
 });
 
 // when click next it goes to summary page
-$f3 ->route('POST /signup/interests' ,function(){
+$f3 ->route('GET|POST /signup/interests' ,function(){
 
 
     //Display a views
@@ -83,7 +115,7 @@ $f3 ->route('POST /signup/interests' ,function(){
 });
 
 // when click next it goes to summary page
-$f3 ->route('POST /signup/summary' ,function(){
+$f3 ->route('GET|POST /signup/summary' ,function(){
 
 //    print_r($_POST);
     $_SESSION['indoor_interests'] = $_POST['indoor_interests[]'];
