@@ -8,5 +8,7 @@
 
 // first name validation
 function validName($name) {
-    return ((!empty($name)) && ctype_alpha($name));
+    return
+        (
+            (!empty($name)) && ctype_alpha($name));
 }

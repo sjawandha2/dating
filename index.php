@@ -12,11 +12,12 @@ error_reporting(E_ALL);
 
 //Require autoload file
 require_once ('vendor/autoload.php');
+require_once ('model/formvalidation.php');
 
 //create an instance of the Base class
 $f3 = Base::instance();
 ////Turn on Fat-Free error reporting
-//$f3->set('DEBUG', 3);
+$f3->set('DEBUG', 3);
 
 // Define a default route for home page
 $f3->route('GET /' , function (){
@@ -27,24 +28,38 @@ $f3->route('GET /' , function (){
 });
 
 // Define a route sign up information page
-$f3 ->route('GET /signup/info' ,function($f3){
+$f3 ->route('GET|POST /signup/info',
+    function($f3){
 
     //start with empty session array here
     $_SESSION = array();
 
     $isValid = true;
 
-    if (isset($_POST['fname'])) {
-        $fname = $_POST['fname'];
-        if (validName($fname)) {
-            $_SESSION['fname'] = $fname;
+        if (!empty($_POST)) {
+            if (isset($_POST['fname'])) {
+                $fname = $_POST['fname'];
+                if (validName($fname)) {
+                    $_SESSION['fname'] = $fname;
+                } else {
+                    $f3->set("errors['fname']", "Please enter your first name");
+                    $isValid = false;
+                }
+            }
+
+            // validate last name
+            if (isset($_POST['lname'])) {
+                $lname = $_POST['lname'];
+                if (validName($lname)) {
+                    $_SESSION['lname'] = $lname;
+                } else {
+                    $f3->set("errors['lname']", "Please enter your last name");
+                    $isValid = false;
+                }
+            }
         }
-        else
-        {
-            $f3->set("errors['fname']", "Please enter your name");
-            $isValid = false;
-        }
-    }
+        print_r($_POST);
+
 
         //Display a views
     $view = new Template();
@@ -52,14 +67,6 @@ $f3 ->route('GET /signup/info' ,function($f3){
 });
 // when click next it goes to profile info page
 $f3 ->route('POST /signup/profile' ,function(){
-
-//    print_r($_POST);
-    // assign post array to session
-    $_SESSION['fname'] = $_POST['fname'];
-    $_SESSION['lname'] = $_POST['lname'];
-    $_SESSION['age'] = $_POST['age'];
-    $_SESSION['gender'] = $_POST['gender'];
-    $_SESSION['phone'] = $_POST['phone'];
 
     //Display a views
     $view = new Template();
@@ -69,12 +76,6 @@ $f3 ->route('POST /signup/profile' ,function(){
 // when click next it goes to summary page
 $f3 ->route('POST /signup/interests' ,function(){
 
-//    print_r($_POST);
-    // assign post array to session
-    $_SESSION['email'] = $_POST['email'];
-    $_SESSION['state'] = $_POST['state'];
-    $_SESSION['seeking'] = $_POST['seeking'];
-    $_SESSION['bio'] = $_POST['bio'];
 
     //Display a views
     $view = new Template();

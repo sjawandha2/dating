@@ -34,13 +34,13 @@
             <hr>
         </div>
     </div>
-    <form method="post" action="profile">
+    <form method="post" action="#">
         <div class="row">
          <div class="col-lg-8">
             <div class="col-md-12">
                 <div class="form-group row">
                     <label>First Name</label>
-                    <input type="text" class="form-control" name="fname">
+                    <input type="text" class="form-control" name="fname" value="{{ @POST['fname'] }}">
                     <!-- validation error message -->
                     <check if="{{ isset(@errors['fname']) }}">
                         <p>{{ @errors['fname'] }}</p>
@@ -48,7 +48,11 @@
                 </div>
                 <div class="form-group row">
                     <label>Last Name</label>
-                    <input type="text" class="form-control" name="lname">
+                    <input type="text" class="form-control" name="lname" value="{{ @POST['lname'] }}">
+                    <!-- validation error message -->
+                    <check if="{{ isset(@errors['lname']) }}">
+                        <p>{{ @errors['lname'] }}</p>
+                    </check>
                 </div>
                 <div class="form-group row">
                     <label>Age</label>
