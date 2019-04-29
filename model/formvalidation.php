@@ -30,3 +30,24 @@ function validPhone($phone) {
 
     return (is_numeric($phone)) && (strlen($phone) == 10);
 }
+
+// indoor interests validation
+function validIndoor($indoor) {
+    $indoorActivities = array("tv", "movies", "cooking", "boardgames",
+        "puzzles", "reading", "playing cards", "video games");
+    if (!in_array($indoor, $indoorActivities)) {
+        return false;
+    } else {
+        return true;
+    }
+}
+// outdoor interests validation
+function validOutdoor($outdoor) {
+    $outdoorActivities = array("hiking", "biking", "swimming", "collecting",
+        "walking", "climbing");
+    if (!in_array($outdoor, $outdoorActivities)) {
+        return false;
+    } else {
+        return true;
+    }
+}

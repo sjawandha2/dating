@@ -90,7 +90,6 @@ $f3 ->route('GET|POST /signup/info',
         }
 //        print_r($_POST);
 
-
         //Display a views
     $view = new Template();
     echo $view->render('views/info.html');
@@ -98,28 +97,92 @@ $f3 ->route('GET|POST /signup/info',
 
 
 // when click next it goes to profile info page
-$f3 ->route('GET|POST /signup/profile' ,function(){
+$f3 ->route('GET|POST /signup/profile' ,function($f3) {
 
+    $isValid = true;
+
+    // validate that the email was not left empty
+    if (!empty($_POST)) {
+        if (isset($_POST['email'])) {
+            $email = $_POST['email'];
+            if (!empty($email)) {
+                $_SESSION['email'] = $email;
+            } else {
+                $f3->set("errors['email']", "Please enter your email address");
+                $isValid = false;
+            }
+        }
+        if (isset($_POST['state'])) {
+            $state = $_POST['state'];
+            if ($state != "") {
+                $_SESSION['state'] = $state;
+            } else {
+                $f3->set("errors['state']", "Please select a state");
+                $isValid = false;
+            }
+        }
+        if (isset($_POST['seeking'])) {
+            $seeking = $_POST['seeking'];
+            if (!empty($seeking)) {
+                $_SESSION['seeking'] = $seeking;
+            }
+        }
+        if (isset($_POST['bio'])) {
+            $bio = $_POST['bio'];
+            if (!empty($bio)) {
+                $_SESSION['bio'] = $bio;
+            }
+        }
+        if ($isValid) {
+            $f3->reroute("/signup/interests");
+        }
+
+        print_r($_POST);
+    }
     //Display a views
     $view = new Template();
     echo $view->render('views/profile.html');
 });
 
+$f3->set('indoor_interests', array('tv', 'movies', 'cooking', 'board games', 'puzzles', 'reading', 'playing cards', 'video games'));
+$f3->set('outdoor_interests', array('hiking', 'biking', 'swimming', 'collecting', 'walking', 'climbing'));
+
 // when click next it goes to summary page
-$f3 ->route('GET|POST /signup/interests' ,function(){
+$f3 ->route('GET|POST /signup/interests' ,function($f3){
 
-
+    //    print_r($_POST);
+    $_SESSION = array();
+    if (!empty($_POST)) {
+        if (isset($_POST['outdoor_interests'])) {
+            $outdoor_interests = $_POST['outdoor_interests'];
+            foreach ($outdoor_interests as $outdoor) {
+                if (validOutdoor($outdoor)) {
+                    $_SESSION['outdoor_interests'][] = $outdoor;
+                } else {
+                    $f3->set("error['outdoor_interests']", "Invalid outdoor interests.");
+                }
+            }
+        }
+        if (isset($_POST['indoor_interests'])) {
+            $indoor_interests = $_POST['indoor_interests'];
+            foreach ($indoor_interests as $indoor) {
+                if (validIndoor($indoor)) {
+                    $_SESSION['indoor_interests'][] = $indoor;
+                } else {
+                    $f3->set("error['indoor_interests']", "Invalid indoor interests.");
+                }
+            }
+        }
+    }
     //Display a views
     $view = new Template();
     echo $view->render('views/interests.html');
 });
 
-// when click next it goes to summary page
-$f3 ->route('GET|POST /signup/summary' ,function(){
 
-//    print_r($_POST);
-    $_SESSION['indoor_interests'] = $_POST['indoor_interests[]'];
-    $_SESSION['outdoor_interests'] = $_POST['outdoor_interests[]'];
+// when click next it goes to summary page
+$f3 ->route('GET|POST /signup/summary' ,function($f3){
+
 
     //Display a views
     $view = new Template();

@@ -31,57 +31,41 @@
     <div class="mt-4 mb-4">
         <h1>&nbsp;Interests</h1>
         <hr>
-        <form action="summary" method="post">
+        <form action="#" method="post">
             <p>
-                <strong>In-door Interests</strong>
+                <strong>Indoor Interests</strong>
             </p>
 
-            <div class="row">
-                <div class="col-sm-3">
-                    <div class="col"><input type="checkbox" name="indoor_interests[]" value="tv"> tv</div>
-                    <div class="col"><input type="checkbox" name="indoor_interests[]" value="puzzles"> puzzles</div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="col"><input type="checkbox" name="indoor_interests[]" value="movies"> movies</div>
-                    <div class="col"><input type="checkbox" name="indoor_interests[]" value="reading"> reading</div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="col"><input type="checkbox" name="indoor_interests[]" value="cooking"> cooking</div>
-                    <div class="col"><input type="checkbox" name="indoor_interests[]" value="playing cards"> playing
-                        cards
+            <div class="checkbox row" id="indoor">
+                <repeat group="{{@indoor_interests}}" value="{{@indoorOptions}}">
+                    <div class="col-sm-3">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="indoor_interests[]" value="{{@indoorOptions}}" ><check if="{{in_array(@indoorOptions, @SESSION['indoor_interests'])}}">checked</check>
+                            {{@indoorOptions}}</label>
                     </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="col"><input type="checkbox" name="indoor_interests[]" value="board games"> board games
-                    </div>
-                    <div class="col"><input type="checkbox" name="indoor_interests[]" value="video games"> video games
-                    </div>
-                </div>
+                </repeat>
             </div>
+            <check if="{{isset(@error['indoor_interests'])}}">
+                <p>{{@error['indoor_interests']}}</p>
+            </check>
             <p>
                 <strong>Out-door Interests</strong>
-            </p>
-
-
-            <div class="row">
-                <div class="col-sm-3">
-                    <div class="col"><input type="checkbox" name="outdoor_interests[]" value="hiking"> hiking</div>
-                    <div class="col"><input type="checkbox" name="outdoor_interests[]" value="walking"> walking</div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="col"><input type="checkbox" name="outdoor_interests[]" value="biking"> biking</div>
-                    <div class="col"><input type="checkbox" name="outdoor_interests[]" value="climbing"> climbing</div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="col"><input type="checkbox" name="outdoor_interests[]" value="swimming"> swimming</div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="col"><input type="checkbox" name="outdoor_interests[]" value="collecting"> collecting
+            <div class="checkbox row" id="outdoor">
+                <repeat group="{{@outdoor_interests}}" value="{{@outdoorOptions}}">
+                    <div class="col-sm-3">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="outdoor_interests[]" value="{{@outdoorOptions}}">
+                            <check if="{{in_array(@outdoorOptions, @SESSION['outdoor_interests'])}}">checked</check>
+                            >
+                            {{@outdoorOptions}}</label>
                     </div>
-                </div>
-            </div>
+                </repeat>
+
+                <check if="{{isset(@error['outdoor_interests'])}}">
+            <p>{{@error['outdoor_interests']}}</p>
+            </check>
             <div class="text-right">
-                <button type="submit" class="btn btn-primary">Next ></button>
+                <button type="submit" name="submit" class="btn btn-primary">Next ></button>
             </div>
         </form>
     </div>

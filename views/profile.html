@@ -34,17 +34,21 @@
             <hr>
         </div>
     </div>
-    <form method="post" action="interests">
+    <form method="post" action="#">
     <div class="row">
         <div class="col-lg-6">
             <div class="col-md-12">
                 <div class="form-group row">
                     <label>Email</label>
-                    <input type="email" class="form-control" name="email">
+                    <input type="email" class="form-control" name="email" value="{{ @POST['email']}}">
+                    <!-- validation error message -->
+                    <check if="{{ isset(@errors['email']) }}">
+                        <span>{{ @errors['email'] }}</span>
+                    </check>
                 </div>
                 <div class="form-group row">
                     <label>State</label>
-                        <input class="form-control" name="state" list="state">
+                        <input class="form-control" name="state" list="state" value="{{ @POST['state']}}">
                         <datalist id="state">
                             <option value="Alabama">
                             <option value="Alaska">
@@ -98,10 +102,14 @@
                             <option value="Wisconsin ">
                             <option value="Wyoming">
                         </datalist>
+                    <!-- validation error message -->
+                    <check if="{{ isset(@errors['state']) }}">
+                        <span>{{ @errors['state'] }}</span>
+                    </check>
                 </div>
                 <div class="form-group row">
                     <label>Seeking</label><br>
-                    <label class="radio-inline"><input type="radio" name="seeking" value="male" checked>Male</label>
+                    <label class="radio-inline"><input type="radio" name="seeking" value="male">Male</label>
                     <label class="radio-inline"><input type="radio" name="seeking" value="female">Female</label>
                 </div>
             </div>
@@ -111,7 +119,7 @@
             <div class="col-md-12">
                 <div class="form-group">
                     <label>Biography</label>
-                    <textarea name="bio" class="form-control" rows="5" placeholder="Tell us about yourself..."></textarea>
+                    <textarea name="bio" class="form-control" rows="5"  value="{{ @POST['bio']}}"></textarea>
                 </div>
             </div>
         </div>
