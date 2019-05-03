@@ -32,14 +32,18 @@ function validPhone($phone) {
 }
 
 // indoor interests validation
-function validIndoor($indoor) {
-    $indoorActivities = array("tv", "movies", "cooking", "boardgames",
-        "puzzles", "reading", "playing cards", "video games");
-    if (!in_array($indoor, $indoorActivities)) {
-        return false;
-    } else {
-        return true;
+function validIndoor($indoor)
+{
+    global $f3;
+    foreach ($indoor as $indoor_interests)
+    {
+        if (!in_array($indoor_interests, $f3->get('indoor')))
+        {
+            return false;
+        }
     }
+    //If we're still here, then we have valid names
+    return true;
 }
 // outdoor interests validation
 function validOutdoor($outdoor) {

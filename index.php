@@ -4,7 +4,7 @@ session_start();
  * Name: Sukhveer S Jawandha
  * 4/8/2019
  * 328/dating/index.php
- */
+ **/
 
 //Turn on error reporting
 ini_set('display_errors',1);
@@ -16,8 +16,14 @@ require_once ('model/formvalidation.php');
 
 //create an instance of the Base class
 $f3 = Base::instance();
+
+
+$f3->set('indoor_interests', array('tv','movies','cooking','board games','puzzles','reading','playing cards','video games'));
+$f3->set('outdoor_interests', array('hiking','biking','swimming','collecting','walking','climbing'));
 ////Turn on Fat-Free error reporting
 $f3->set('DEBUG', 3);
+
+
 
 // Define a default route for home page
 $f3->route('GET|POST /' , function (){
@@ -137,43 +143,46 @@ $f3 ->route('GET|POST /signup/profile' ,function($f3) {
             $f3->reroute("/signup/interests");
         }
 
-        print_r($_POST);
+//        print_r($_POST);
     }
     //Display a views
     $view = new Template();
     echo $view->render('views/profile.html');
 });
 
-$f3->set('indoor_interests', array('tv', 'movies', 'cooking', 'board games', 'puzzles', 'reading', 'playing cards', 'video games'));
-$f3->set('outdoor_interests', array('hiking', 'biking', 'swimming', 'collecting', 'walking', 'climbing'));
-
 // when click next it goes to summary page
 $f3 ->route('GET|POST /signup/interests' ,function($f3){
 
-    //    print_r($_POST);
-    $_SESSION = array();
+    $isValid = true;
     if (!empty($_POST)) {
-        if (isset($_POST['outdoor_interests'])) {
-            $outdoor_interests = $_POST['outdoor_interests'];
-            foreach ($outdoor_interests as $outdoor) {
-                if (validOutdoor($outdoor)) {
-                    $_SESSION['outdoor_interests'][] = $outdoor;
-                } else {
-                    $f3->set("error['outdoor_interests']", "Invalid outdoor interests.");
-                }
+        $indoor = $_POST['indoor'];
+
+        if (validIndoor($indoor))
+        {
+            $_SESSION['indoor'] = $indoor;
+            if (empty($pname)) {
+                $_SESSION['indoor'] = "No Names selected";
             }
-        }
-        if (isset($_POST['indoor_interests'])) {
-            $indoor_interests = $_POST['indoor_interests'];
-            foreach ($indoor_interests as $indoor) {
-                if (validIndoor($indoor)) {
-                    $_SESSION['indoor_interests'][] = $indoor;
-                } else {
-                    $f3->set("error['indoor_interests']", "Invalid indoor interests.");
-                }
+            else {
+
+                $_SESSION['indoor'] = implode(', ', $indoor);
             }
+
         }
+        else
+        {
+            $f3->set("errors['indoor']","Invalid Choice");
+            $isValid = false;
+
+        }
+        if($isValid)
+        {
+            //redirect to next form
+            $f3->reroute('signup/summary');
+        }
+
     }
+
     //Display a views
     $view = new Template();
     echo $view->render('views/interests.html');
@@ -182,7 +191,6 @@ $f3 ->route('GET|POST /signup/interests' ,function($f3){
 
 // when click next it goes to summary page
 $f3 ->route('GET|POST /signup/summary' ,function($f3){
-
 
     //Display a views
     $view = new Template();

@@ -40,30 +40,31 @@
                 <repeat group="{{@indoor_interests}}" value="{{@indoorOptions}}">
                     <div class="col-sm-3">
                         <label class="checkbox-inline">
-                            <input type="checkbox" name="indoor_interests[]" value="{{@indoorOptions}}" ><check if="{{in_array(@indoorOptions, @SESSION['indoor_interests'])}}">checked</check>
-                            {{@indoorOptions}}</label>
+                            <input type="checkbox" name="indoor[]" value="{{@indoorOptions}}"
+                            <check if="{{!empty(@indoor) && in_array(@indoorOptions, @indoor)}}">
+                                checked="checked"
+                            </check>
+                            >{{@indoorOptions}}</label>
                     </div>
                 </repeat>
-            </div>
-            <check if="{{isset(@error['indoor_interests'])}}">
-                <p>{{@error['indoor_interests']}}</p>
-            </check>
-            <p>
-                <strong>Out-door Interests</strong>
-            <div class="checkbox row" id="outdoor">
-                <repeat group="{{@outdoor_interests}}" value="{{@outdoorOptions}}">
-                    <div class="col-sm-3">
-                        <label class="checkbox-inline">
-                            <input type="checkbox" name="outdoor_interests[]" value="{{@outdoorOptions}}">
-                            <check if="{{in_array(@outdoorOptions, @SESSION['outdoor_interests'])}}">checked</check>
-                            >
-                            {{@outdoorOptions}}</label>
-                    </div>
-                </repeat>
+                <check if="{{ @errors['indoor'] }}">
+                    <span class="err">{{ @errors['indoor'] }}</span>
+                </check><br>
 
-                <check if="{{isset(@error['outdoor_interests'])}}">
-            <p>{{@error['outdoor_interests']}}</p>
-            </check>
+            </div>
+                <!--<strong>Out-door Interests</strong>-->
+            <!--<div class="checkbox row" id="outdoor">-->
+                <!--<repeat group="{{@outdoor_interests}}" value="{{@outdoorOptions}}">-->
+                    <!--<div class="col-sm-3">-->
+                        <!--<label class="checkbox-inline">-->
+                            <!--<input type="checkbox" name="outdoor_interests[]" value="{{@outdoorOptions}}">-->
+                            <!--<check if="{{in_array(@outdoorOptions, @SESSION['outdoor_interests'])}}">checked</check>-->
+                            <!--&gt;-->
+                            <!--{{@outdoorOptions}}</label>-->
+                    <!--</div>-->
+                <!--</repeat>-->
+                <!---->
+            <!--</div>-->
             <div class="text-right">
                 <button type="submit" name="submit" class="btn btn-primary">Next ></button>
             </div>
