@@ -143,7 +143,6 @@ $f3->route('GET|POST /signup/profile', function ($f3) {
             $f3->reroute("/signup/interests");
         }
 
-        print_r($_POST);
     }
     //Display a views
     $view = new Template();
@@ -193,8 +192,6 @@ $f3->route('GET|POST /signup/interests', function ($f3) {
             //redirect to next form
             $f3->reroute('signup/summary');
         }
-
-        print_r($_POST);
     }
 
     //Display a views
@@ -209,7 +206,6 @@ $f3->route('GET|POST /signup/summary', function ($f3) {
     //Display a views
     $view = new Template();
     echo $view->render('views/summary.html');
-    print_r($_SESSION);
 });
 //Run Fat-Free
 $f3->run();
