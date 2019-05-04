@@ -35,23 +35,39 @@ function validPhone($phone) {
 function validIndoor($indoor)
 {
     global $f3;
+    //Interest are optional
+    if (empty($indoor))
+    {
+        return true;
+    }
     foreach ($indoor as $indoor_interests)
     {
         if (!in_array($indoor_interests, $f3->get('indoor')))
         {
             return false;
         }
+        return true;
     }
     //If we're still here, then we have valid names
     return true;
 }
 // outdoor interests validation
-function validOutdoor($outdoor) {
-    $outdoorActivities = array("hiking", "biking", "swimming", "collecting",
-        "walking", "climbing");
-    if (!in_array($outdoor, $outdoorActivities)) {
-        return false;
-    } else {
+function validOutdoor($outdoor)
+{
+    global $f3;
+    //Interest are optional
+    if (empty($outdoor))
+    {
         return true;
     }
+    foreach ($outdoor as $outdoor_interests)
+    {
+        if (!in_array($outdoor_interests, $f3->get('outdoor')))
+        {
+            return false;
+        }
+        return true;
+    }
+    //If we're still here, then we have valid names
+    return true;
 }

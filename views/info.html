@@ -43,7 +43,7 @@
                     <input type="text" class="form-control" name="fname" value="{{ @POST['fname'] }}">
                     <!-- validation error message -->
                     <check if="{{ isset(@errors['fname']) }}">
-                        <p>{{ @errors['fname'] }}</p>
+                        <span class="err">{{ @errors['fname'] }}</span>
                     </check>
                 </div>
                 <div class="form-group row">
@@ -51,7 +51,7 @@
                     <input type="text" class="form-control" name="lname" value="{{ @POST['lname'] }}">
                     <!-- validation error message -->
                     <check if="{{ isset(@errors['lname']) }}">
-                        <p>{{ @errors['lname'] }}</p>
+                        <span class="err">{{ @errors['lname'] }}</span>
                     </check>
                 </div>
                 <div class="form-group row">
@@ -59,22 +59,26 @@
                     <input type="number" maxlength=100 class="form-control" name="age" value="{{ @POST['age'] }}">
                     <!-- validation error message -->
                     <check if="{{ isset(@errors['age']) }}">
-                        <span>{{ @errors['age'] }}</span>
+                        <span class="err">{{ @errors['age'] }}</span>
                     </check>
                 </div>
                 <div class="form-group row">
-                    <label>Gender</label>
-                <br>
-                        <input type="radio" name="gender" value="male">&nbsp;Male
-                        <input type="radio" name="gender" value="female">&nbsp;Female
-
+                    <label>Gender</label><br>
+                    <repeat group="{{ @genders }}" value="{{ @genderOption }}">
+                        <input type="radio" name="gender" value="{{ @genderOption }}"
+                        <check if="{{ @genderOption == @gender}}">
+                            checked = "checked"
+                        </check>
+                        >{{ @genderOption }}
+                        <br>
+                    </repeat>
                 </div>
                 <div class="form-group row">
                     <label>Phone Number</label>
                     <input type="tel" class="form-control" name="phone" value="{{ @POST['phone']}}">
                     <!-- validation error message -->
                     <check if="{{ isset(@errors['phone']) }}">
-                        <span>{{ @errors['phone'] }}</span>
+                        <span class="err">{{ @errors['phone'] }}</span>
                     </check>
                 </div>
             </div>

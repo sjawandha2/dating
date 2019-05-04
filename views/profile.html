@@ -43,7 +43,7 @@
                     <input type="email" class="form-control" name="email" value="{{ @POST['email']}}">
                     <!-- validation error message -->
                     <check if="{{ isset(@errors['email']) }}">
-                        <span>{{ @errors['email'] }}</span>
+                        <span class="err">{{ @errors['email'] }}</span>
                     </check>
                 </div>
                 <div class="form-group row">
@@ -104,13 +104,19 @@
                         </datalist>
                     <!-- validation error message -->
                     <check if="{{ isset(@errors['state']) }}">
-                        <span>{{ @errors['state'] }}</span>
+                        <span class="err">{{ @errors['state'] }}</span>
                     </check>
                 </div>
                 <div class="form-group row">
                     <label>Seeking</label><br>
-                    <label class="radio-inline"><input type="radio" name="seeking" value="male">Male</label>
-                    <label class="radio-inline"><input type="radio" name="seeking" value="female">Female</label>
+                    <repeat group="{{ @genders }}" value="{{ @seekingOption }}">
+                        <input type="radio" name="seeking" value="{{ @seekingOption }}"
+                            <check if="{{ @seekingOption == @seeking}}">
+                                checked = "checked"
+                            </check>
+                            >{{ @seekingOption }}
+                        <br>
+                    </repeat>
                 </div>
             </div>
         </div>
@@ -119,7 +125,7 @@
             <div class="col-md-12">
                 <div class="form-group">
                     <label>Biography</label>
-                    <textarea name="bio" class="form-control" rows="5"  value="{{ @POST['bio']}}"></textarea>
+                    <textarea name="bio" class="form-control" rows="5" >{{@bio}}</textarea>
                 </div>
             </div>
         </div>
