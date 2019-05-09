@@ -1,5 +1,4 @@
 <?php
-session_start();
 /**
  * Name: Sukhveer S Jawandha
  * 4/8/2019
@@ -13,6 +12,8 @@ error_reporting(E_ALL);
 //Require autoload file
 require_once('vendor/autoload.php');
 require_once('model/formvalidation.php');
+
+session_start();
 
 //create an instance of the Base class
 $f3 = Base::instance();
@@ -85,10 +86,18 @@ $f3->route('GET|POST /signup/info',
             if (validPhone($phone)) {
                 $_SESSION['phone'] = $phone;
             } else {
-                $f3->set("errors['phone']", "Please enter full 10-digit number");
+                $f3->set("errors['phone']", "Please enter 10 digit phone number");
                 $isValid = false;
             }
             if ($isValid) {
+                //check if premium member is set
+                if(isset($_POST['premium'])){
+                    $premium = new PremiumMember($fname,$lname,$age,$gender,$phone);
+                    $_SESSION['memberType'] = $premium;
+                } else {
+                    $member = new Member($fname, $lname, $age, $gender, $phone);
+                    $_SESSION['memberType'] = $member;
+                }
                 $f3->reroute("/signup/profile");
             }
         }
@@ -104,7 +113,9 @@ $f3->route('GET|POST /signup/profile', function ($f3) {
 
     $isValid = true;
 
-    // validate that the email was not left empty
+    // retrieve member object from session
+        $memberType = $_SESSION['memberType'];
+
     if (!empty($_POST)) {
 
         $email = $_POST['email'];
@@ -120,6 +131,7 @@ $f3->route('GET|POST /signup/profile', function ($f3) {
 
         if (!empty($email)) {
             $_SESSION['email'] = $email;
+            $memberType->setEmail($email);
         } else {
             $f3->set("errors['email']", "Please enter your email address");
             $isValid = false;
@@ -127,6 +139,7 @@ $f3->route('GET|POST /signup/profile', function ($f3) {
 
         if (!empty($state)) {
             $_SESSION['state'] = $state;
+            $memberType->setState($state);
         } else {
             $f3->set("errors['state']", "Please select a state");
             $isValid = false;
@@ -134,14 +147,19 @@ $f3->route('GET|POST /signup/profile', function ($f3) {
 
         if (isset($_POST['seeking'])) {
             $_SESSION['seeking'] = $seeking;
+            $memberType->setSeeking($seeking);
         }
 
         if (!empty($bio)) {
             $_SESSION['bio'] = $bio;
+            $memberType->setBio($bio);
         }
         if ($isValid) {
+            $_SESSION['memberType'] = $memberType;
             $f3->reroute("/signup/interests");
         }
+
+//        print_r($memberType);
 
     }
     //Display a views
