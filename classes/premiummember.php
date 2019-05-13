@@ -25,15 +25,24 @@ class PremiumMember extends Member
 
     function __construct($fname, $lname, $age, $gender, $phone)
     {
+        // parent constructor call
         parent::__construct($fname, $lname, $age, $gender, $phone);
     }
+//    function __construct($fname, $lname, $age, $gender, $phone, $indoorInterests,$outdoorInterests)
+//    {
+//        // parent constructor call
+//        parent::__construct($fname, $lname, $age, $gender, $phone);
+//
+//        $this->_inDoorInterests = $indoorInterests;
+//        $this->_outDoorInterests = $outdoorInterests;
+//    }
     /**
      * Get indoor interests of the premium member
      * @return string $_inDoorInterests
      */
     public function getIndoorInterests()
     {
-        return $this->_indoorInterests;
+        return $this->_inDoorInterests;
     }
     /**
      * Set indoor interests of the premium member

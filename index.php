@@ -24,6 +24,16 @@ $f3->set('outdoor_interests', array('hiking', 'biking', 'swimming', 'collecting'
 $f3->set('genders', array('Male', 'Female'));
 
 ////Turn on Fat-Free error reporting
+//set_exception_handler(function($obj) use($f3){
+//    $f3->error(500,$obj->getmessage(),$obj->gettrace());
+//});
+//set_error_handler(function($code,$text) use($f3)
+//{
+//    if (error_reporting())
+//    {
+//        $f3->error(500,$text);
+//    }
+//});
 $f3->set('DEBUG', 3);
 
 
@@ -156,9 +166,15 @@ $f3->route('GET|POST /signup/profile', function ($f3) {
         }
         if ($isValid) {
             $_SESSION['memberType'] = $memberType;
-            $f3->reroute("/signup/interests");
-        }
 
+            // if member sign up for premium account than goes to interest page
+            // otherwise goes to summary page
+            if(get_class($memberType)=='PremiumMember'){
+                $f3->reroute("/signup/interests");
+            } else {
+                $f3->reroute("/signup/summary");
+            }
+        }
 //        print_r($memberType);
 
     }
@@ -170,7 +186,9 @@ $f3->route('GET|POST /signup/profile', function ($f3) {
 // when click next it goes to summary page
 $f3->route('GET|POST /signup/interests', function ($f3) {
 
+    $memberType = $_SESSION['memberType'];
     $isValid = true;
+
     if (!empty($_POST)) {
         $indoor = $_POST['indoor'];
         $outdoor = $_POST['outdoor'];
@@ -187,6 +205,8 @@ $f3->route('GET|POST /signup/interests', function ($f3) {
             } else {
                 $_SESSION['indoor'] = implode(', ', $indoor);
             }
+
+            $memberType->setIndoorInterests($_SESSION['indoor']);
         } else {
             $f3->set("errors['indoor']", "Invalid Choice");
             $isValid = false;
@@ -201,6 +221,9 @@ $f3->route('GET|POST /signup/interests', function ($f3) {
             } else {
                 $_SESSION['outdoor'] = implode(', ', $outdoor);
             }
+
+            $memberType->setOutdoorInterests($_SESSION['outdoor']);
+
         } else {
             $f3->set("errors['outdoor']", "Invalid Choice");
             $isValid = false;
@@ -211,11 +234,12 @@ $f3->route('GET|POST /signup/interests', function ($f3) {
             $f3->reroute('signup/summary');
         }
     }
-
+//    print_r($memberType);
     //Display a views
     $view = new Template();
     echo $view->render('views/interests.html');
 });
+
 
 
 // when click next it goes to summary page
@@ -224,6 +248,7 @@ $f3->route('GET|POST /signup/summary', function ($f3) {
     //Display a views
     $view = new Template();
     echo $view->render('views/summary.html');
+
 });
 //Run Fat-Free
 $f3->run();
