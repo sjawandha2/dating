@@ -169,7 +169,7 @@ $f3->route('GET|POST /signup/profile', function ($f3) {
 
             // if member sign up for premium account than goes to interest page
             // otherwise goes to summary page
-            if(get_class($memberType)=='PremiumMember'){
+            if($memberType instanceof PremiumMember){
                 $f3->reroute("/signup/interests");
             } else {
                 $f3->reroute("/signup/summary");

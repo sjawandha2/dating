@@ -33,15 +33,18 @@
             <div class="col-lg-12 justify-content-lg-center">
                 <div class="col-lg-6">
                     <ul class="ul list-group">
-                        <li class="list-group-item">Name: {{ $_SESSION['fname']}} {{ $_SESSION['lname']}}</li>
-                        <li class="list-group-item">Gender: {{ $_SESSION['gender']}}</li>
-                        <li class="list-group-item">Age: {{ $_SESSION['age']}}</li>
-                        <li class="list-group-item">Phone: {{ $_SESSION['phone']}}</li>
-                        <li class="list-group-item">Email: {{ $_SESSION['email']}}</li>
-                        <li class="list-group-item">State: {{ $_SESSION['state']}}</li>
-                        <li class="list-group-item">Seeking: {{ $_SESSION['seeking']}}</li>
-                        <li class="list-group-item">Outdoor Interests: {{ $_SESSION['outdoor']}} </li>
-                        <li class="list-group-item">Indoor Interests: {{ $_SESSION['indoor']}} </li>
+                        <li class="list-group-item">Name: {{ @SESSION.memberType->getFname() }}
+                            {{ @SESSION.memberType->getLname() }}</li>
+                        <li class="list-group-item">Gender: {{ @SESSION.memberType->getGender() }}</li>
+                        <li class="list-group-item">Age: {{ @SESSION.memberType->getAge() }}</li>
+                        <li class="list-group-item">Phone: {{ @SESSION.memberType->getPhone() }}</li>
+                        <li class="list-group-item">Email: {{ @SESSION.memberType->getEmail() }}</li>
+                        <li class="list-group-item">State: {{ @SESSION.memberType->getState() }}</li>
+                        <li class="list-group-item">Seeking: {{ @SESSION.memberType->getSeeking() }}</li>
+                        <check if="{{ get_class(@SESSION.memberType) == 'PremiumMember' }}">
+                            <li class="list-group-item">Interests: {{ @SESSION.memberType->getIndoorInterests() }},
+                                {{ @SESSION.memberType->getOutdoorInterests() }}</li>
+                        </check>
                     </ul>
                 </div>
 
