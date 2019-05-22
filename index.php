@@ -11,12 +11,14 @@ error_reporting(E_ALL);
 
 //Require autoload file
 require_once('vendor/autoload.php');
-require_once('model/formvalidation.php');
-
+require 'model/database.php';
 session_start();
 
 //create an instance of the Base class
 $f3 = Base::instance();
+$db = new Database();
+//validate form
+require_once('model/formvalidation.php');
 
 
 $f3->set('indoor_interests', array('tv', 'movies', 'cooking', 'board games', 'puzzles', 'reading', 'playing cards', 'video games'));
@@ -244,6 +246,9 @@ $f3->route('GET|POST /signup/interests', function ($f3) {
 
 // when click next it goes to summary page
 $f3->route('GET|POST /signup/summary', function ($f3) {
+
+    global $db;
+//    $add = $db->insertMember();
 
     //Display a views
     $view = new Template();
