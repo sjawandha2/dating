@@ -85,10 +85,19 @@ class Database
         return $result;
     }
 
-    function getMember($member_Id)
+    function getMember($member_id)
     {
         global $dbh;
-        $sql = "SELECT * FROM members WHERE member_id = '$member_Id'";
+        $sql = "SELECT * FROM members WHERE member_id = '$member_id'";
+        $statement = $dbh->prepare($sql);
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
+    function getInterests($member_id)
+    {
+        global $dbh;
+        $sql = "SELECT * FROM interest";
         $statement = $dbh->prepare($sql);
         $statement->execute();
         $result = $statement->fetch(PDO::FETCH_ASSOC);
