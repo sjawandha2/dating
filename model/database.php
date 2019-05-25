@@ -22,8 +22,7 @@ CREATE TABLE members (
 CREATE TABLE interest (
 interest_id INT PRIMARY KEY AUTO_INCREMENT,
  interest varchar(255),
-type varchar(50),
- PRIMARY KEY (interest_id)
+type varchar(50)
  );
 
  */
@@ -97,7 +96,7 @@ class Database
     function getInterests($member_id)
     {
         global $dbh;
-        $sql = "SELECT * FROM interest";
+        $sql = "SELECT * FROM interest,members WHERE member_id = '$member_id'";
         $statement = $dbh->prepare($sql);
         $statement->execute();
         $result = $statement->fetch(PDO::FETCH_ASSOC);
