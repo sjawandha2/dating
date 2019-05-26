@@ -14,9 +14,12 @@ require_once('vendor/autoload.php');
 require 'model/database.php';
 session_start();
 
+$db = new Database();
+$db->connect();
+
 //create an instance of the Base class
 $f3 = Base::instance();
-$db = new Database();
+
 //validate form
 require_once('model/formvalidation.php');
 
@@ -103,8 +106,8 @@ $f3->route('GET|POST /signup/info',
             }
             if ($isValid) {
                 //check if premium member is set
-                if(isset($_POST['premium'])){
-                    $premium = new PremiumMember($fname,$lname,$age,$gender,$phone);
+                if (isset($_POST['premium'])) {
+                    $premium = new PremiumMember($fname, $lname, $age, $gender, $phone);
                     $_SESSION['memberType'] = $premium;
                 } else {
                     $member = new Member($fname, $lname, $age, $gender, $phone);
@@ -126,7 +129,7 @@ $f3->route('GET|POST /signup/profile', function ($f3) {
     $isValid = true;
 
     // retrieve member object from session
-        $memberType = $_SESSION['memberType'];
+    $memberType = $_SESSION['memberType'];
 
     if (!empty($_POST)) {
 
@@ -171,14 +174,14 @@ $f3->route('GET|POST /signup/profile', function ($f3) {
 
             // if member sign up for premium account than goes to interest page
             // otherwise goes to summary page
-            if($memberType instanceof PremiumMember){
+            if ($memberType instanceof PremiumMember) {
                 $f3->reroute("/signup/interests");
+//                echo "You are a Premium Member!";
+
             } else {
                 $f3->reroute("/signup/summary");
             }
         }
-//        print_r($memberType);
-
     }
     //Display a views
     $view = new Template();
@@ -232,23 +235,41 @@ $f3->route('GET|POST /signup/interests', function ($f3) {
 
         }
         if ($isValid) {
+            $_SESSION['memberType'] = $memberType;
             //redirect to next form
             $f3->reroute('signup/summary');
         }
     }
-//    print_r($memberType);
     //Display a views
     $view = new Template();
     echo $view->render('views/interests.html');
 });
 
 
-
 // when click next it goes to summary page
-$f3->route('GET|POST /signup/summary', function ($f3) {
+$f3->route('GET|POST /signup/summary', function () {
+    $memberType = $_SESSION['memberType'];
+    global $dbh;
 
-    global $db;
-//    $add = $db->insertMember();
+
+    if ($memberType instanceof PremiumMember) {
+        $dbh->insertMember($memberType->getFname(), $memberType->getLname(), $memberType->getAge(), $memberType->getGender(),
+            $memberType->getPhone(), $memberType->getEmail(), $memberType->getState(), $memberType->getSeeking(),
+            $memberType->getBio(),1);
+//       $interests = array_merge($memberType->getIndoorInterests(),$memberType->getOutdoorInterests());
+//foreach ($interests as $allInterest)
+//{
+//    $db->insertMemberInterest($member_id['member_id'], $interest_id['interest_id']);
+//
+//}
+    }
+    else
+    {
+        $dbh->insertMember($memberType->getFname(), $memberType->getLname(), $memberType->getAge(), $memberType->getGender(),
+            $memberType->getPhone(), $memberType->getEmail(), $memberType->getState(), $memberType->getSeeking(),
+            $memberType->getBio(),0);
+    }
+
 
     //Display a views
     $view = new Template();
