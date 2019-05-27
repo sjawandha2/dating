@@ -55,32 +55,33 @@ class Database
         }
     }
 
-    function insertMember($member)
+    function insertMember($fname, $lname, $age, $phone, $email,
+                          $gender, $state, $seeking, $bio, $premium , $image)
     {
         if (isset($this->_dbh)) {
             //1. define the query
             $sql = '
-INSERT INTO member(fname, lname, age, gender, phone, email, state, seeking, bio, premium, image) VALUES (:fname, :lname, :age, :gender, :phone, :email, :state, :seeking, :bio, :premium, :image)';
+INSERT INTO member(fname,lname,age,gender,phone,email,state,seeking,bio,premium,image) VALUES (:fname, :lname, :age, :gender, :phone, :email, :state, :seeking, :bio, :premium, :image)';
             //2. prepare the statement
             $statement = $this->_dbh->prepare($sql);
 
-            // assign values
-            $fname = $member->getFname();
-            $lname = $member->getLname();
-            $age = $member->getAge();
-            $gender = $member->getGender();
-            $phone = $member->getPhone();
-            $email = $member->getEmail();
-            $state = $member->getState();
-            $seeking = $member->getSeeking();
-            $bio = $member->getBio();
-            $image = null;
+//            // assign values
+//            $fname = $member->getFname();
+//            $lname = $member->getLname();
+//            $age = $member->getAge();
+//            $gender = $member->getGender();
+//            $phone = $member->getPhone();
+//            $email = $member->getEmail();
+//            $state = $member->getState();
+//            $seeking = $member->getSeeking();
+//            $bio = $member->getBio();
+//            if ($member instanceof PremiumMember) {
+//                $premium = 1;
+//            } else {
+//                $premium = 0;
+//            }
+//            $image = 0;
 
-            if ($member instanceof PremiumMember) {
-                $premium = 1;
-            } else {
-                $premium = 0;
-            }
 
             //bind parameters
             $statement->bindParam(':fname', $fname, PDO::PARAM_STR);
@@ -97,30 +98,60 @@ INSERT INTO member(fname, lname, age, gender, phone, email, state, seeking, bio,
 
 
             $statement->execute();
+
+//            $id = $this->_dbh->lastInsertId();
+//            //check if Premium member to insert
+//            if ($member instanceof PremiumMember) {
+//                $indoor = $member->getIndoorInterests();
+//                $outdoor = $member->getOutdoorInterests();
+//                if (isset($indoor)) {
+//                    $this->insertInterest($indoor, $id);
+//                }
+//                if (isset($outdoor)) {
+//                    $this->insertInterest($outdoor, $id);
+//                }
+//            }
         }
     }
 
-     function insertInterest($interest_id, $member_id)
+    function insertInterest($interest_id, $member_id)
     {
         $sql = "INSERT INTO member_interest(member_id, interest_id)
                 VALUES(:member_id, :interest_id)";
         $statement = $this->_dbh->prepare($sql);
-        foreach ($interest_id as $value) {
             // bind interest id and member id
             $statement->bindParam(":member_id", $member_id, PDO::PARAM_INT);
-            $statement->bindParam(":interest_id", $this->getInterestID($value), PDO::PARAM_INT);
+            $statement->bindParam(":interest_id", $interest_id, PDO::PARAM_INT);
             //Execute the statement
             $statement->execute();
-        }
+
     }
 
     function getInterestID($interest_id)
     {
         $sql = "SELECT interest_id FROM interest WHERE interest_id = :interest_id";
         $statement = $this->_dbh->prepare($sql);
-        $statement->bindParam(':interest', $interest_id, PDO::PARAM_INT);
+        $statement->bindParam(':interest_id', $interest_id, PDO::PARAM_STR);
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_NUM);
+    }
+
+    function getMemberID($fname, $lname)
+    {
+        //define query
+        $sql= "SELECT member_id FROM member
+                  WHERE fname = :fname 
+                  AND lname = :lname";
+        //prepare statement
+        $statement = $this->_dbh->prepare($sql);
+        //bind parameters
+        $statement->bindParam(':fname', $fname);
+        $statement->bindParam(':lname', $lname);
+        //execute
+        $statement->execute();
+        //get result
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        return $result;
     }
 
     function getMembers()
@@ -137,36 +168,19 @@ INSERT INTO member(fname, lname, age, gender, phone, email, state, seeking, bio,
     {
         $sql = "SELECT * FROM member WHERE member_id = :member_id";
         $statement = $this->_dbh->prepare($sql);
-        $statement->bindParam(':member_id', $member_id);
+        $statement->bindParam(':member_id', $member_id, PDO::PARAM_INT);
         $statement->execute();
         $result = $statement->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
 
-//    function insertInterest($interest_id, $member_id)
-//    {
-//
-//        $sql = 'INSERT INTO member_interest (member_id, interest_id)
-//                  VALUES (:member_id, :interest_id)';
-//
-//        $statement = $this->_db->prepare($sql);
-//        //bind parameters
-//        $statement->bindParam(':interest_id', $interest_id, PDO::PARAM_STR);
-//        $statement->bindParam(':member_id', $member_id, PDO::PARAM_STR);
-//
-//        //execute statement
-//        $statement->execute();
-//    }
 
     function getInterests($member_id)
     {
-        global $dbh;
-        $dbh = $this->connect();
-        $sql = "SELECT interest FROM interest,member_interest WHERE member_interest.interest_id = interest.interest_id AND member_id = :member_id";
+        $sql = "SELECT interest,type FROM interest,member_interest WHERE member_interest.interest_id = interest.interest_id AND member_id = :member_id";
 
         $statement = $this->_dbh->prepare($sql);
-        $statement->bindParam(':member_id', $member_id);
-
+        $statement->bindParam(':member_id', $member_id, PDO::PARAM_STR);
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $result;
