@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--
+     Name : Sukhveer Jawandha
+     Date: 4/5/2019
+      File: 328/dating/views/interests.html
+    This file contain the form for interests for signup.
+    /-->
+    <meta charset="UTF-8">
+    <title>Create an Account</title>
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+<!-- navbar -->
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">My Dating Website</a>
+            <a class="navbar-brand" href="/328/dating">Home</a>
+            <a class="navbar-brand" href="/328/dating/admin">Admin</a>
+
+        </div>
+    </div>
+</nav> <!-- end navbar -->
+
+<div class="container">
+    <div class="row">
+        <div class="row justify-content-lg-center">
+            <div class="col-lg-12 justify-content-lg-center">
+                <div class="col-lg-6">
+                    <ul class="ul list-group">
+                        <li class="list-group-item">Name: {{ @member['fname'] }} {{ @member['lname'] }}</li>
+                        <li class="list-group-item">Gender: {{ @member['gender'] }}</li>
+                        <li class="list-group-item">Age: {{ @member['age'] }}</li>
+                        <li class="list-group-item">Phone: {{ @member['phone'] }}</li>
+                        <li class="list-group-item">Email: {{ @member['email'] }}</li>
+                        <li class="list-group-item">State: {{ @member['state'] }}</li>
+                        <li class="list-group-item">Seeking: {{ @member['seeking'] }}</li>
+                        <check if="{{ @member['premium'] == true }}">
+                            <li class="list-group-item">Interests: {{ @member['interests'] }}</li>
+                        </check>
+                    </ul>
+                </div>
+
+                <div class="col-sm-6 text-center">
+                    <img src="../images/profile.png" class="float center" alt="Default Profile Picture">
+                    <ul class="ul list-group">
+                        <h3>Biography</h3>
+                        <li class="list-group-item text-center">{{ $member['bio']}}</li>
+                    </ul>
+                    <div class="center">
+                        <button type="submit" class="btn btn-primary">Contact Me</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>
+</html>

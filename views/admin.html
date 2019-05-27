@@ -47,7 +47,7 @@
         <repeat group="{{ @members }}" value="{{ @member }}">
             <tr>
                 <th>{{ @member['member_id'] }}</th>
-                <td> {{ @member['fname'] }} {{ @member['lname'] }}</td>
+                <td><a href="detail/{{ @member['member_id'] }}">{{ @member['fname'] }} {{ @member['lname'] }}</a></td>
                 <td>{{ @member['age'] }}</td>
                 <td>( {{ @member['phone'] }} )</td>
                 <td>{{ @member['email'] }}</td>
@@ -67,7 +67,7 @@
 
                 </check>
 
-                <td>Interests</td>
+                <td>{{ @member['interests'] }}</td>
             </tr>
         </repeat>
         </tbody>

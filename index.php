@@ -243,7 +243,7 @@ $f3->route('GET|POST /signup/interests', function ($f3) {
 
 
 // when click next it goes to summary page
-$f3->route('GET|POST /signup/summary', function () {
+$f3->route('GET|POST /signup/summary', function ($f3) {
 
     //get member and db object
     $member = $_SESSION['memberType'];
@@ -261,8 +261,28 @@ $f3->route('GET|POST /signup/summary', function () {
     $image = 0;
     //insert based on member type
     if($member instanceof PremiumMember) {
+        $f3->set("indoor", $member->getIndoorInterests());
+        $f3->set("outdoor", $member->getOutdoorInterests());
+        // combine interests if necessary
+        if ($f3->get("indoor") && $f3->get("outdoor") != null) {
+            $interests = $f3->get("indoor") . " " . $f3->get("outdoor");
+        } else if ($f3->get("indoor") != null) {
+            $interests = $f3->get("indoor");
+        } else if ($f3->get("outdoor") != null) {
+            $interests = $f3->get("outdoor");
+        }
+        $interests = str_replace(" ", ", ", $interests);
+
+
+        $member_id = $db->getMemberID($fname, $lname);
+//        foreach ($interests as $interest) {
+//            $interest_id = $db->getInterestID($interest);
+//            $db->insertMemberInterest($member_id['member_id'], $interest_id['interest_id']);
+//        }
+
         $db->insertMember($fname, $lname, $age, $phone, $email,
             $gender, $state, $seeking, $bio, 1,$image);
+        $db->insertInterest($member_id,$interests);
 
         //insert interests
 
@@ -279,17 +299,27 @@ $f3->route('GET|POST /signup/summary', function () {
 });
 
 //admin route
-$f3->route('GET /admin', function ($f3) {
+$f3->route('GET|POST /admin', function ($f3) {
 
     global $db;
     $db->connect();
     $members = $db->getMembers();
-    $view = new Template();
     //set members and db for use in admin
     $f3->set('members', $members);
     $f3->set('db', $db);
     //display a view
+    $view = new Template();
     echo $view->render('views/admin.html');
+});
+
+// route to view profiles based on member id
+$f3->route("GET /detail/@member_id", function($f3, $params) {
+    global $db;
+    $id = $params['member_id'];
+    $member= $db->getMember($id);
+    $f3->set("member", $member);
+    $template = new Template();
+    echo $template->render('views/member_summary.html');
 });
 //Run Fat-Free
 $f3->run();
