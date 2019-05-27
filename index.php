@@ -13,15 +13,15 @@ error_reporting(E_ALL);
 require_once('vendor/autoload.php');
 require 'model/database.php';
 session_start();
+//validate form
+require_once('model/formvalidation.php');
 
 $db = new Database();
-$db->connect();
+
 
 //create an instance of the Base class
 $f3 = Base::instance();
 
-//validate form
-require_once('model/formvalidation.php');
 
 
 $f3->set('indoor_interests', array('tv', 'movies', 'cooking', 'board games', 'puzzles', 'reading', 'playing cards', 'video games'));
@@ -248,33 +248,25 @@ $f3->route('GET|POST /signup/interests', function ($f3) {
 
 // when click next it goes to summary page
 $f3->route('GET|POST /signup/summary', function () {
-    $memberType = $_SESSION['memberType'];
-    global $dbh;
-
-
-    if ($memberType instanceof PremiumMember) {
-        $dbh->insertMember($memberType->getFname(), $memberType->getLname(), $memberType->getAge(), $memberType->getGender(),
-            $memberType->getPhone(), $memberType->getEmail(), $memberType->getState(), $memberType->getSeeking(),
-            $memberType->getBio(),1);
-//       $interests = array_merge($memberType->getIndoorInterests(),$memberType->getOutdoorInterests());
-//foreach ($interests as $allInterest)
-//{
-//    $db->insertMemberInterest($member_id['member_id'], $interest_id['interest_id']);
-//
-//}
-    }
-    else
-    {
-        $dbh->insertMember($memberType->getFname(), $memberType->getLname(), $memberType->getAge(), $memberType->getGender(),
-            $memberType->getPhone(), $memberType->getEmail(), $memberType->getState(), $memberType->getSeeking(),
-            $memberType->getBio(),0);
-    }
-
 
     //Display a views
     $view = new Template();
     echo $view->render('views/summary.html');
 
+});
+
+//admin route
+$f3->route('GET /admin', function($f3) {
+
+    global $db;
+    $db->connect();
+    $members = $db->getMembers();
+    //set members and db for use in admin
+    $f3->set('members', $members);
+    $f3->set('db', $db);
+    //display a view
+    $view = new Template();
+    echo $view->render('views/admin.html');
 });
 //Run Fat-Free
 $f3->run();

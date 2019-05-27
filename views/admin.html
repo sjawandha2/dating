@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--
+     Name : Sukhveer Jawandha
+     Date: 4/5/2019
+      File: 328/dating/views/surveypage.html
+    This file the home page for dating website.
+    /-->
+    <meta charset="UTF-8">
+    <title>My Dating Website</title>
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<!--navbar-->
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">My Dating Website</a>
+            <a class="navbar-brand" href="/328/dating">Home</a>
+            <a class="navbar-brand" href="/328/admin">Admin</a>
+        </div>
+    </div>
+</nav> <!-- end navbar -->
+<div class="container-fluid py-3">
+    <h1>Members</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th >Member ID</th>
+            <th>Last Name</th>
+            <th>First Name</th>
+            <th>Age</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>State</th>
+            <th>Gender</th>
+            <th>Seeking</th>
+            <th>Premium</th>
+            <th>Interests</th>
+        </tr>
+        </thead>
+        <tbody>
+        <repeat group="{{ @members }}" value="{{ @member }}">
+            <tr>
+                <th>{{ @member['member_id'] }}</th>
+                <td> {{ @member['lname'] }}</td>
+                <td>{{ @member['fname'] }}</td>
+                <td>{{ @member['age'] }}</td>
+                <td>{{ @member['phone'] }}</td>
+                <td>{{ @member['email'] }}</td>
+                <td>{{ @member['state'] }}</td>
+                <td>{{ @member['gender'] }}</td>
+                <td>{{ @member['seeking'] }}</td>
+
+                <!-- get premium member icon -->
+                <check if="{{ @member['premium'] == 0 }}">
+                    <true>
+                        <td><i class="far fa-square"></i></td>
+                    </true>
+                    <false>
+                        <td><i class="far fa-check-square"></i></td>
+                    </false>
+                </check>
+
+                <!-- get interests -->
+                <td>
+                    <repeat group="{{ @db->getInterests(@member['member_id']) }}"
+                            value="{{ @interest }}"
+                            counter="{{ @ctr }}">
+                        <check if="{{ @ctr!=sizeof(@db->getInterests(@member['member_id'])) }}">
+                            <true>{{ @interest['interest'] }}, </true>
+                            <false>{{ @interest['interest'] }}</false>
+                        </check>
+                    </repeat>
+                </td>
+            </tr>
+        </repeat>
+        </tbody>
+    </table>
+</div>
+
+

@@ -55,37 +55,76 @@ class Database
         }
     }
 
-    function insertMember($fname, $lname, $age, $gender, $phone, $email, $state, $seeking, $bio, $premium, $image)
+    function insertMember($member)
     {
-        global $dbh;
-        $dbh = $this->connect();
-        //1. define the query
-        $sql = '
+        if (isset($this->_dbh)) {
+            //1. define the query
+            $sql = '
 INSERT INTO member(fname, lname, age, gender, phone, email, state, seeking, bio, premium, image) VALUES (:fname, :lname, :age, :gender, :phone, :email, :state, :seeking, :bio, :premium, :image)';
-        //2. prepare the statement
+            //2. prepare the statement
+            $statement = $this->_dbh->prepare($sql);
+
+            // assign values
+            $fname = $member->getFname();
+            $lname = $member->getLname();
+            $age = $member->getAge();
+            $gender = $member->getGender();
+            $phone = $member->getPhone();
+            $email = $member->getEmail();
+            $state = $member->getState();
+            $seeking = $member->getSeeking();
+            $bio = $member->getBio();
+            $image = null;
+
+            if ($member instanceof PremiumMember) {
+                $premium = 1;
+            } else {
+                $premium = 0;
+            }
+
+            //bind parameters
+            $statement->bindParam(':fname', $fname, PDO::PARAM_STR);
+            $statement->bindParam(':lname', $lname, PDO::PARAM_STR);
+            $statement->bindParam(':age', $age, PDO::PARAM_STR);
+            $statement->bindParam(':gender', $gender, PDO::PARAM_STR);
+            $statement->bindParam(':phone', $phone, PDO::PARAM_STR);
+            $statement->bindParam(':email', $email, PDO::PARAM_STR);
+            $statement->bindParam(':state', $state, PDO::PARAM_STR);
+            $statement->bindParam(':seeking', $seeking, PDO::PARAM_STR);
+            $statement->bindParam(':bio', $bio, PDO::PARAM_STR);
+            $statement->bindParam(':premium', $premium, PDO::PARAM_INT);
+            $statement->bindParam(':image', $image, PDO::PARAM_STR);
+
+
+            $statement->execute();
+        }
+    }
+
+     function insertInterest($interest_id, $member_id)
+    {
+        $sql = "INSERT INTO member_interest(member_id, interest_id)
+                VALUES(:member_id, :interest_id)";
         $statement = $this->_dbh->prepare($sql);
+        foreach ($interest_id as $value) {
+            // bind interest id and member id
+            $statement->bindParam(":member_id", $member_id, PDO::PARAM_INT);
+            $statement->bindParam(":interest_id", $this->getInterestID($value), PDO::PARAM_INT);
+            //Execute the statement
+            $statement->execute();
+        }
+    }
 
-        //bind parameters
-        $statement->bindParam(':fname', $fname, PDO::PARAM_STR);
-        $statement->bindParam(':lname', $lname, PDO::PARAM_STR);
-        $statement->bindParam(':age', $age, PDO::PARAM_STR);
-        $statement->bindParam(':gender', $gender, PDO::PARAM_STR);
-        $statement->bindParam(':phone', $phone, PDO::PARAM_STR);
-        $statement->bindParam(':email', $email, PDO::PARAM_STR);
-        $statement->bindParam(':state', $state, PDO::PARAM_STR);
-        $statement->bindParam(':seeking', $seeking, PDO::PARAM_STR);
-        $statement->bindParam(':bio', $bio, PDO::PARAM_STR);
-        $statement->bindParam(':premium', $premium, PDO::PARAM_INT);
-        $statement->bindParam(':image', $image, PDO::PARAM_STR);
-
-
+    function getInterestID($interest_id)
+    {
+        $sql = "SELECT interest_id FROM interest WHERE interest_id = :interest_id";
+        $statement = $this->_dbh->prepare($sql);
+        $statement->bindParam(':interest', $interest_id, PDO::PARAM_INT);
         $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_NUM);
     }
 
     function getMembers()
     {
-        global $dbh;
-        $dbh = $this->connect();
 
         $sql = "SELECT * FROM member ORDER BY lname";
         $statement = $this->_dbh->prepare($sql);
@@ -96,9 +135,6 @@ INSERT INTO member(fname, lname, age, gender, phone, email, state, seeking, bio,
 
     function getMember($member_id)
     {
-        global $dbh;
-        $dbh = $this->connect();
-
         $sql = "SELECT * FROM member WHERE member_id = :member_id";
         $statement = $this->_dbh->prepare($sql);
         $statement->bindParam(':member_id', $member_id);
@@ -107,26 +143,26 @@ INSERT INTO member(fname, lname, age, gender, phone, email, state, seeking, bio,
         return $result;
     }
 
-    function insertInterest($interest_id, $member_id)
-    {
-
-        $sql = 'INSERT INTO member_interest (member_id, interest_id)
-                  VALUES (:member_id, :interest_id)';
-
-        $statement = $this->_db->prepare($sql);
-        //bind parameters
-        $statement->bindParam(':interest_id', $interest_id, PDO::PARAM_STR);
-        $statement->bindParam(':member_id', $member_id, PDO::PARAM_STR);
-
-        //execute statement
-        $statement->execute();
-    }
+//    function insertInterest($interest_id, $member_id)
+//    {
+//
+//        $sql = 'INSERT INTO member_interest (member_id, interest_id)
+//                  VALUES (:member_id, :interest_id)';
+//
+//        $statement = $this->_db->prepare($sql);
+//        //bind parameters
+//        $statement->bindParam(':interest_id', $interest_id, PDO::PARAM_STR);
+//        $statement->bindParam(':member_id', $member_id, PDO::PARAM_STR);
+//
+//        //execute statement
+//        $statement->execute();
+//    }
 
     function getInterests($member_id)
     {
         global $dbh;
         $dbh = $this->connect();
-        $sql = "SELECT interest,type FROM interest,member_interest WHERE member_id = :member_id AND member_interest.interest_id = interest.interest_id";
+        $sql = "SELECT interest FROM interest,member_interest WHERE member_interest.interest_id = interest.interest_id AND member_id = :member_id";
 
         $statement = $this->_dbh->prepare($sql);
         $statement->bindParam(':member_id', $member_id);
