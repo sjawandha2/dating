@@ -11,7 +11,6 @@ error_reporting(E_ALL);
 
 //Require autoload file
 require_once('vendor/autoload.php');
-require_once 'model/database.php';
 session_start();
 //validate form
 require_once('model/formvalidation.php');
@@ -275,16 +274,11 @@ $f3->route('GET|POST /signup/summary', function ($f3) {
 
 
         $member_id = $db->getMemberID($fname, $lname);
-//        foreach ($interests as $interest) {
-//            $interest_id = $db->getInterestID($interest);
-//            $db->insertMemberInterest($member_id['member_id'], $interest_id['interest_id']);
-//        }
+
 
         $db->insertMember($fname, $lname, $age, $phone, $email,
             $gender, $state, $seeking, $bio, 1,$image);
         $db->insertInterest($member_id,$interests);
-
-        //insert interests
 
     }
     else {
