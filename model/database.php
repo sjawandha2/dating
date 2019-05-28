@@ -33,16 +33,24 @@ CREATE TABLE member (
  );
  */
 require "/home2/sjawandh/config.php";
-
+/**
+ * database Class is for  a database for members
+ *
+ * This class represents a database object for members.
+ * @author Sukhveer S Jawandha
+ * @copyright 2019
+ */
 class Database
 {
     private $_dbh;
 
+    // constructor
     function __construct()
     {
         $this->connect();
     }
 
+    // connect to database
     function connect()
     {
         try {
@@ -64,24 +72,6 @@ class Database
 INSERT INTO member(fname,lname,age,gender,phone,email,state,seeking,bio,premium,image) VALUES (:fname, :lname, :age, :gender, :phone, :email, :state, :seeking, :bio, :premium, :image)';
             //2. prepare the statement
             $statement = $this->_dbh->prepare($sql);
-
-//            // assign values
-//            $fname = $member->getFname();
-//            $lname = $member->getLname();
-//            $age = $member->getAge();
-//            $gender = $member->getGender();
-//            $phone = $member->getPhone();
-//            $email = $member->getEmail();
-//            $state = $member->getState();
-//            $seeking = $member->getSeeking();
-//            $bio = $member->getBio();
-//            if ($member instanceof PremiumMember) {
-//                $premium = 1;
-//            } else {
-//                $premium = 0;
-//            }
-//            $image = 0;
-
 
             //bind parameters
             $statement->bindParam(':fname', $fname, PDO::PARAM_STR);
